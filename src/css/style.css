@@ -220,3 +220,7 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+#total-price {
+  font-weight: 400;
+}

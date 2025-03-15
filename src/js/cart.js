@@ -6,6 +6,17 @@ function renderCartContents() {
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
+// Total Cart Price
+function calculateTotalPrice(){
+  let cartProducts = getLocalStorage("so-cart") || [];
+  let totalAmount = cartProducts.reduce((sum, product) => {
+    return sum + (product.FinalPrice || 0);
+  }, 0);
+
+  const price = document.getElementById("total-price");
+  price.innerHTML = `<span class="total-price">$${totalAmount.toFixed(2)}</span>`;
+}
+
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -25,4 +36,5 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+calculateTotalPrice();
 renderCartContents();
