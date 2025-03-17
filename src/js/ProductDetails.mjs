@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, updateCartQuantity } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
@@ -32,6 +32,7 @@ export default class ProductDetails {
     let cartProducts = getLocalStorage("so-cart") || [];
     cartProducts.push(this.product);
     setLocalStorage("so-cart", cartProducts);
+    updateCartQuantity();
   }
 
   renderProductDetails(selector) {
@@ -39,3 +40,5 @@ export default class ProductDetails {
     element.insertAdjacentHTML("afterBegin", productDetailsTemplate(this.product));
   }
 }
+
+updateCartQuantity();
