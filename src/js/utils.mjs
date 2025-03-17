@@ -35,3 +35,22 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+export function updateCartQuantity() {
+  let cartProducts = getLocalStorage("so-cart") || [];
+  let totalQuantity = 0;
+
+  for (let i = 0; i < cartProducts.length; i++) {
+    let item = cartProducts[i];
+    let quantity = item.quantity || 1;
+    totalQuantity = totalQuantity + quantity;
+  }
+
+  const quantityBadge = document.getElementById("cart-quantity");
+  if (totalQuantity > 0) {
+    quantityBadge.textContent = totalQuantity;
+    quantityBadge.style.display = "flex";
+  } else {
+    quantityBadge.style.display = "none";
+  }
+}
