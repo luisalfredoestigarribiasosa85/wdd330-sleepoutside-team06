@@ -18,6 +18,7 @@ function calculateTotalPrice() {
 }
 
 function cartItemTemplate(item) {
+  const quantity = item.quantity || 1;
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
@@ -36,5 +37,19 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+function updateCartQuantity() {
+  let cartProducts = getLocalStorage("so-cart") || [];
+  let totalQuantity = cartProducts.reduce((sum, item) => sum +(item.quantity || 1), 0);
+
+  const quantityBadge = document.getElementById("cart-quantity");
+  if (totalQuantity > 0) {
+    quantityBadge.textContent = totalQuantity;
+    quantityBadge.style.display = "flex";
+  } else {
+    quantityBadge.style.display = "none";
+  }
+}
+
 calculateTotalPrice();
 renderCartContents();
+updateCartQuantity();
