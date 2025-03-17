@@ -175,10 +175,10 @@ button {
   align-items: center;
 }
 
-cart-badge {
+.cart-badge {
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: 8px;
+  right: -5px;
   background: red;
   color: white;
   font-size: 12px;
