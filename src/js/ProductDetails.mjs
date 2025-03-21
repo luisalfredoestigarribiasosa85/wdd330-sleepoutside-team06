@@ -1,4 +1,4 @@
-import { setLocalStorage, updateCartQuantity } from "./utils.mjs";
+import { setLocalStorage, updateCartQuantity, delay } from "./utils.mjs";
 import { getLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
@@ -32,7 +32,7 @@ export default class ProductDetails {
     let cartProducts = getLocalStorage("so-cart") || [];
     cartProducts.push(this.product);
     setLocalStorage("so-cart", cartProducts);
-    updateCartQuantity();
+    delay(500).then(() => updateCartQuantity());
   }
 
   renderProductDetails(selector) {
@@ -41,4 +41,4 @@ export default class ProductDetails {
   }
 }
 
-updateCartQuantity();
+delay(500).then(() => updateCartQuantity());

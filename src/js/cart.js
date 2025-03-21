@@ -1,4 +1,9 @@
-import { getLocalStorage, updateCartQuantity, loadHeaderFooter, delay} from "./utils.mjs";
+import {
+  getLocalStorage,
+  updateCartQuantity,
+  loadHeaderFooter,
+  delay,
+} from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || []; // fixed this task "Empty Card Error: cart.html" on trello adding "|| []" to cartItems so the error in the console is fixed
@@ -9,16 +14,18 @@ function renderCartContents() {
 // Total Cart Price
 function calculateTotalPrice() {
   let cartProducts = getLocalStorage("so-cart") || [];
-  let totalAmount = cartProducts.reduce((sum, product) => {
-    return sum + (product.FinalPrice || 0);
-  }, 0);
+  let totalAmount = cartProducts.reduce(
+    (sum, product) => sum + (product.FinalPrice || 0),
+    0,
+  );
 
   const price = document.getElementById("total-price");
-  price.innerHTML = `<span class="total-price">$${totalAmount.toFixed(2)}</span>`;
+  if (price) {
+    price.innerHTML = `<span class="total-price">$${totalAmount.toFixed(2)}</span>`;
+  }
 }
 
 function cartItemTemplate(item) {
-  const quantity = item.quantity || 1;
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
@@ -30,7 +37,6 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
