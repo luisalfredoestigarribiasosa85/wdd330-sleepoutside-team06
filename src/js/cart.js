@@ -1,10 +1,4 @@
-import {
-  getLocalStorage,
-  updateCartQuantity,
-  loadHeaderFooter,
-} from "./utils.mjs";
-
-loadHeaderFooter();
+import { getLocalStorage, updateCartQuantity, loadHeaderFooter, delay} from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || []; // fixed this task "Empty Card Error: cart.html" on trello adding "|| []" to cartItems so the error in the console is fixed
@@ -43,6 +37,7 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
-calculateTotalPrice();
+loadHeaderFooter();
 renderCartContents();
-updateCartQuantity();
+calculateTotalPrice();
+delay(500).then(() => updateCartQuantity());
