@@ -77,3 +77,7 @@ export function updateCartQuantity() {
     quantityBadge.style.display = "none";
   }
 }
+
+export function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
