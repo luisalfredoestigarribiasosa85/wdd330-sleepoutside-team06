@@ -27,19 +27,15 @@ function calculateTotalPrice() {
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
+  <a href="/product_pages/?product=${item.Id}">
+    <img src="${item.Images.PrimaryMedium}" alt="${item.Name}">
   </a>
   <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
+    <h2 class="card__name">${item.NameWithoutBrand}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
-
+  <p class="product-card__price">$${item.FinalPrice}</p>
+  </li>`;
   return newItem;
 }
 

@@ -93,6 +93,7 @@ button {
 }
 .divider {
   border-bottom: 2px solid var(--primary-color);
+  width: 100%;
 }
 /* End utility classes */
 
@@ -239,4 +240,40 @@ footer {
 
 #total-price {
   font-weight: 400;
+}
+
+.categories {
+  margin: 0 6rem;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.categories a {
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
+.categories img {
+  margin-left: 15px;
+  width: 75px;
+  height: 75px;
+}
+
+.categories figcaption {
+  width: 100px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.5rem;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.title {
+  text-transform: capitalize;
 }
