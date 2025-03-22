@@ -17,6 +17,8 @@ function renderCartContents() {
       const newCart = items.filter((item) => item.Id !== itemId);
       localStorage.setItem("so-cart", JSON.stringify(newCart));
       renderCartContents();
+      calculateTotalPrice();
+      delay(500).then(() => updateCartQuantity());
     });
   });
 }
