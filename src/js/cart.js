@@ -29,7 +29,7 @@ function calculateTotalPrice() {
 }
 
 // Remove from cart
-function removeFromCart(){
+function removeFromCart() {
   document.querySelectorAll(".card__remove").forEach((button) => {
     button.addEventListener("click", function () {
       const itemId = this.getAttribute("id");
