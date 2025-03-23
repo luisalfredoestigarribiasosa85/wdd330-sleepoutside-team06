@@ -6,6 +6,9 @@ import {
   delay,
   getParam,
 } from "./utils.mjs";
+import Alert from "./Alert.js";
+const alertSystem = new Alert("/json/alerts.json");
+alertSystem.renderAlerts();
 
 loadHeaderFooter();
 
