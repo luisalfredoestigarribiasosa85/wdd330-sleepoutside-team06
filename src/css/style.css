@@ -141,11 +141,25 @@ button {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+  position: relative;
 }
 .product-card h2,
 .product-card h3,
 .product-card p {
   margin: 0.5em 0;
+}
+
+.discount-badge {
+  position: absolute;
+  background-color: #ff4d4d;
+  color: white;
+  font-size: .8rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 8px;
+  bottom: 10px;
+  right: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .card__brand {
