@@ -28,7 +28,16 @@ export default class ProductDetails {
 
   addToCart() {
     let cartProducts = getLocalStorage("so-cart") || [];
-    cartProducts.push(this.product);
+
+    // Duplicate items in cart Task
+    let existingProduct = cartProducts.find(item => item.Id === this.product.Id);
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      this.product.quantity = 1;
+      cartProducts.push(this.product);
+    }
+
     setLocalStorage("so-cart", cartProducts);
     delay(500).then(() => updateCartQuantity());
   }
