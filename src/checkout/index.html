@@ -8,8 +8,8 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="../js/checkout.js" type="module"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/checkout.js" type="module"></script>
   </head>
 
   <body>
@@ -19,8 +19,90 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
+      <section id="summary">
+        <p id="subtotal"></p>
+        <p id="tax"></p>
+        <p id="shipping"></p>
+        <h4 id="orderTotal"></h4>
+      </section>
+      <div class="form-box">
+        <form action="" id="checkoutForm" method="post">
+          <fieldset>
+            <legend>Customer info</legend>
+            <label
+              >First Name
+              <input type="text" name="fname" required />
+            </label>
+            <label
+              >Last Name
+              <input type="text" name="lname" required />
+            </label>
+            <label
+              >Street Address
+              <input type="text" name="street" required />
+            </label>
+            <label
+              >City
+              <input type="text" name="city" required />
+            </label>
+            <label
+              >State
+              <input type="text" name="state" required />
+            </label>
+            <label
+              >Zip Code
+              <input type="text" name="zip" required />
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend id="payment-info">Payment info</legend>
+            <label
+              >Credit Card Number
+              <input
+                type="text"
+                pattern="[0-9]*"
+                name="cardnumber"
+                inputmode="numeric"
+                minlength="16"
+                maxlength="16"
+                placeholder="0000 0000 0000 0000"
+                required
+              />
+            </label>
+            <label
+              >Expiration Date
+              <input
+                type="text"
+                pattern="[0-9]*"
+                name="expdate"
+                inputmode="numeric"
+                placeholder="mm/yy"
+                minlength="4"
+                maxlength="4"
+                required
+              />
+            </label>
+            <label
+              >Security Code
+              <input
+                type="text"
+                pattern="[0-9]*"
+                name="scode"
+                inputmode="numeric"
+                minlength="3"
+                maxlength="3"
+                placeholder="000"
+                required
+              />
+            </label>
+          </fieldset>
+          <div class="submit-box">
+            <input type="submit" name="order" value="Order Now" />
+          </div>
+        </form>
+      </div>
     </main>
 
-    <footer>&copy;NOT a real business</footer>
+    <footer id="footer-container"></footer>
   </body>
 </html>
