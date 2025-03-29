@@ -5,13 +5,14 @@ import {
   loadHeaderFooter,
   delay,
   getParam,
+  generateBreadcrumbs
 } from "./utils.mjs";
 import Alert from "./Alert.js";
 const alertSystem = new Alert("/json/alerts.json");
 alertSystem.renderAlerts();
 
 loadHeaderFooter();
-
+document.addEventListener("DOMContentLoaded", generateBreadcrumbs);
 const category = getParam("category");
 const dataSource = new ExternalServices();
 const element = document.querySelector(".product-list");
