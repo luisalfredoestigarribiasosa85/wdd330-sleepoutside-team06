@@ -15,12 +15,16 @@ function formDataToJSON(formElement) {
 }
 
 export function packageItems(items) {
-    return items.map(item => ({
-        id: item.id,
-        name: item.name,
-        price: item.FinalPrice,
-        quantity: item.quantity
-    }));
+    const listOfItems = items.map ((item) => {
+        console.log(item);
+        return {
+            id: item.Id,
+            name: item.Name,
+            price: item.FinalPrice,
+            quantity: item.quantity
+        };
+    });
+    return listOfItems;
 }
 
 export default class CheckoutProcess {
@@ -76,22 +80,15 @@ export default class CheckoutProcess {
         const order = formDataToJSON(formData);
 
         order.orderDate = new Date().toISOString();
-        order.fname = this.fname;
-        order.lname = this.lname;
-        order.street = this.street;
-        order.city = this.city;
-        order.state = this.state;
-        order.zip = this.zip;
-        order.cardNumber = this.cardNumber;
-        order.expiration = this.expiration;
-        order.code = this.code;
         order.items = packageItems(this.list);
         order.orderTotal = this.orderTotal.toFixed(2);
         order.shipping = this.shipping;
         order.tax = this.tax.toFixed(2);
 
+        console.log("Order Data:", order);
+
         try {
-            await services.checkout(orderData);
+            await services.checkout(order);
             alert("Order placed successfully!");
         } catch (error) {
             console.error("Checkout failed:", error);
@@ -100,11 +97,11 @@ export default class CheckoutProcess {
     }
   }  
 
-  function calculateTotalPrice() {
+function calculateTotalPrice() {
     let cartProducts = getLocalStorage("so-cart") || [];
     let totalAmount = cartProducts.reduce(
       (sum, product) => sum + (product.FinalPrice * product.quantity || 0),
       0,
     );
     return totalAmount.toFixed(2);
-    }
+}
