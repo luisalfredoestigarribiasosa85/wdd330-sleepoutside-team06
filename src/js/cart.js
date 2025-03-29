@@ -66,7 +66,7 @@ function displayCheckoutButton() {
     0,
   );
 
-  const buttonContainer = document.querySelector("'.button-container'");
+  const buttonContainer = document.querySelector(".button-container");
 
   if (totalQuantity > 0) {
     if (!buttonContainer) {
