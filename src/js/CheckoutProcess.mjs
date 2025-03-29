@@ -1,5 +1,5 @@
 import ExternalServices from "./ExternalServices.mjs";
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts} from "./utils.mjs";
 
 const services = new ExternalServices();
 
@@ -84,14 +84,16 @@ export default class CheckoutProcess {
         order.shipping = this.shipping;
         order.tax = this.tax.toFixed(2);
 
-        console.log("Order Data:", order);
-
         try {
             await services.checkout(order);
-            alert("Order placed successfully!");
-        } catch (error) {
-            console.error("Checkout failed:", error);
-            alert("There was an issue with your order. Please try again.");
+            setLocalStorage("so-cart", []);
+            location.assign("/checkout/success.html");
+        } catch (err) {
+            removeAllAlerts();
+            for (let message in err.message) {
+              alertMessage(err.message[message]);
+            }
+            console.log(err);
         }
     }
   }  

@@ -284,10 +284,6 @@ footer {
   text-transform: capitalize;
 }
 
-.products {
-  text-align: center;
-}
-
 #summary {
   margin-left: auto;
   margin-right: auto;
@@ -348,7 +344,8 @@ legend {
   padding-top: 10px;
 }
 
-form button[type="submit"] {
+form button[type="submit"],
+#checkoutButton {
   background-color: rgba(58, 62, 73, 0.9);
   color: white;
   font-size: 1.2rem;
@@ -359,12 +356,45 @@ form button[type="submit"] {
   border-radius: 8px;
 }
 
-form button[type="submit"]:hover {
+form button[type="submit"]:hover,
+#checkoutButton:hover {
   background-color: #f0a868;
 }
 
 .submit-box {
   margin-top: 10px;
+}
+
+.success-container {
+  text-align: center;
+  margin: 0 auto;
+  padding: 5rem 0;
+}
+
+.bottom-cart {
+  height: 8rem;
+}
+
+.bottom-cart h2 {
+  padding-bottom: 1rem;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  border-radius: 25px;
+  margin: 0.5rem;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert span {
+  cursor: pointer;
 }
 
 /* == Media Query ==*/

@@ -27,7 +27,7 @@
       </section>
       <div class="form-box">
         <form name="checkoutForm" id="checkoutForm">
-          <input type="hidden" name="orderDate" id="orderDate">
+          <input type="hidden" name="orderDate" id="orderDate" />
           <fieldset>
             <legend>Customer info</legend>
             <label
@@ -75,7 +75,7 @@
               >Expiration Date
               <input
                 type="text"
-                pattern="[0-9]*"
+                pattern="[0-9\/]*"
                 name="expiration"
                 id="expiration"
                 inputmode="numeric"
@@ -100,7 +100,9 @@
             </label>
           </fieldset>
           <div class="submit-box">
-            <button type="submit" name="order" id="orderSubmit">Order Now</button>
+            <button type="submit" name="order" id="orderSubmit">
+              Order Now
+            </button>
           </div>
         </form>
       </div>
