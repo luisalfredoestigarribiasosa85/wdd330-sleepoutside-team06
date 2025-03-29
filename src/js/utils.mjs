@@ -66,11 +66,9 @@ export async function generateBreadcrumbs() {
   let breadcrumbHTML = "";
 
   if (path.includes("product_listing")) {
-    // Obtener la categoría desde la URL
     const category = getParam("category");
 
     try {
-      // Obtener productos desde la API
       const products = await services.getData(category);
       breadcrumbHTML = `${category} -> (${products.length} items)`;
     } catch (error) {
@@ -78,11 +76,9 @@ export async function generateBreadcrumbs() {
       breadcrumbHTML = `${category} -> (0 items)`;
     }
   } else if (path.includes("product_pages")) {
-    // Obtener el ID del producto desde la URL
     const productId = getParam("product");
 
     try {
-      // Obtener los detalles del producto desde la API
       const product = await services.findProductById(productId);
       breadcrumbHTML = product ? `${product.Category}` : "Product Category";
     } catch (error) {
