@@ -1,6 +1,28 @@
 import ExternalServices from "./ExternalServices.mjs";
 import { getLocalStorage } from "./utils.mjs";
 
+const services = new ExternalServices();
+
+function formDataToJSON(formElement) {
+    const formData = new FormData(formElement),
+      convertedJSON = {};
+  
+    formData.forEach(function (value, key) {
+      convertedJSON[key] = value;
+    });
+  
+    return convertedJSON;
+}
+
+export function packageItems(items) {
+    return items.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.FinalPrice,
+        quantity: item.quantity
+    }));
+}
+
 export default class CheckoutProcess {
     constructor(key, outputSelector) {
       this.key = key;
@@ -49,40 +71,30 @@ export default class CheckoutProcess {
       tax.innerText = `Tax: $${this.tax.toFixed(2)}`;
     }
 
-    static packageItems(items) {
-        return items.map(item => ({
-            id: item.id,
-            name: item.name,
-            price: item.FinalPrice,
-            quantity: item.quantity
-        }));
-    }
-
-    async checkout(form) {
-        const formData = formDataToJSON(form);
+    async checkout() {
+        const formData = document.forms["checkoutForm"];
+        const order = formDataToJSON(formData);
 
         const cartItems = getLocalStorage(this.key) || [];
-        const packageItems = CheckoutProcess.packageItems(cartItems);
+        const packageItems = packageItems(cartItems);
 
-        const orderData = {
-            orderDate: new Date().toISOString(),
-            fname: formData.fname,
-            lname: formData.lname,
-            street: formData.street,
-            city: formData.city,
-            state: formData.state,
-            zip: formData.zip,
-            cardNumber: formData.cardNumber,
-            expiration: formData.expiration,
-            code: formData.code,
-            items: packageItems,
-            orderTotal: this.orderTotal.toFixed(2),
-            shipping: this.shipping,
-            tax: this.tax.toFixed(2)
-        };
+        order.orderDate = new Date().toISOString();
+        order.fname = this.fname;
+        order.lname = this.lname;
+        order.street = this.street;
+        order.city = this.city;
+        order.state = this.state;
+        order.zip = this.zip;
+        order.cardNumber = this.cardNumber;
+        order.expiration = this.expiration;
+        order.code = this.code;
+        order.items = packageItems;
+        order.orderTotal = this.orderTotal.toFixed(2);
+        order.shipping = this.shipping;
+        order.tax = this.tax.toFixed(2);
 
         try {
-            await ExternalServices.checkout(orderData);
+            await services.checkout(orderData);
             alert("Order placed successfully!");
         } catch (error) {
             console.error("Checkout failed:", error);
@@ -98,15 +110,4 @@ export default class CheckoutProcess {
       0,
     );
     return totalAmount.toFixed(2);
-    }
-
-    function formDataToJSON(formElement) {
-        const formData = new FormData(formElement),
-          convertedJSON = {};
-      
-        formData.forEach(function (value, key) {
-          convertedJSON[key] = value;
-        });
-      
-        return convertedJSON;
     }
