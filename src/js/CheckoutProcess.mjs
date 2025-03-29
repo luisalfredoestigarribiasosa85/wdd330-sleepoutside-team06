@@ -75,9 +75,6 @@ export default class CheckoutProcess {
         const formData = document.forms["checkoutForm"];
         const order = formDataToJSON(formData);
 
-        const cartItems = getLocalStorage(this.key) || [];
-        const packageItems = packageItems(cartItems);
-
         order.orderDate = new Date().toISOString();
         order.fname = this.fname;
         order.lname = this.lname;
@@ -88,7 +85,7 @@ export default class CheckoutProcess {
         order.cardNumber = this.cardNumber;
         order.expiration = this.expiration;
         order.code = this.code;
-        order.items = packageItems;
+        order.items = packageItems(this.list);
         order.orderTotal = this.orderTotal.toFixed(2);
         order.shipping = this.shipping;
         order.tax = this.tax.toFixed(2);
