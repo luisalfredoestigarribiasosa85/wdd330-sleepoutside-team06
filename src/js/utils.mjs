@@ -1,3 +1,7 @@
+import ExternalServices from "./ExternalServices.mjs";
+
+const services = new ExternalServices();
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -31,7 +35,7 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
 //week3 function
 export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.insertAdjacentHTML("afterbegin", template);
-  if(callback) {
+  if (callback) {
     callback(data);
   }
 }
@@ -45,10 +49,54 @@ export async function loadTemplate(path) {
 export async function loadHeaderFooter() {
   const header = await loadTemplate("../partials/header.html");
   const footer = await loadTemplate("../partials/footer.html");
+  const breadcrumb = await loadTemplate("../partials/breadcrumbs.html")
   const headerContainer = document.getElementById("header-container");
   const footerContainer = document.getElementById("footer-container");
+  const breadcrumbContainer = document.querySelector(".breadcrumbs");
   renderWithTemplate(header, headerContainer);
-  renderWithTemplate(footer,footerContainer);
+  renderWithTemplate(footer, footerContainer);
+  renderWithTemplate(breadcrumb, breadcrumbContainer);
+}
+
+export async function generateBreadcrumbs() {
+  const breadcrumbs = document.querySelector(".breadcrumbs");
+  if (!breadcrumbs) return;
+
+  const path = window.location.pathname;
+  let breadcrumbHTML = "";
+
+  if (path.includes("product_listing")) {
+    // Obtener la categoría desde la URL
+    const category = getParam("category");
+
+    try {
+      // Obtener productos desde la API
+      const products = await services.getData(category);
+      breadcrumbHTML = `${category} -> (${products.length} items)`;
+    } catch (error) {
+      console.error("Error:", error);
+      breadcrumbHTML = `${category} -> (0 items)`;
+    }
+  } else if (path.includes("product_pages")) {
+    // Obtener el ID del producto desde la URL
+    const productId = getParam("product");
+
+    try {
+      // Obtener los detalles del producto desde la API
+      const product = await services.findProductById(productId);
+      breadcrumbHTML = product ? `${product.Category}` : "Product Category";
+    } catch (error) {
+      console.error("Error:", error);
+      breadcrumbHTML = "Product Category";
+    }
+  } else if (path.includes("cart")) {
+    breadcrumbHTML = "Cart";
+  } else if (path.includes("checkout")) {
+    breadcrumbHTML = "Checkout";
+  }
+
+
+  breadcrumbs.innerHTML = breadcrumbHTML;
 }
 
 // set a listener for both touchend and click

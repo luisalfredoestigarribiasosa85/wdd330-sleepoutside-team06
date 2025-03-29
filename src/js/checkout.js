@@ -1,4 +1,4 @@
-import { updateCartQuantity, loadHeaderFooter, delay } from "./utils.mjs";
+import { updateCartQuantity, loadHeaderFooter, delay, generateBreadcrumbs } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
 
 const checkout = new CheckoutProcess("so-cart", "#summary");
@@ -17,4 +17,5 @@ document.querySelector("#orderSubmit").addEventListener("click", (e) => {
 });
 
 loadHeaderFooter();
+document.addEventListener("DOMContentLoaded", generateBreadcrumbs);
 delay(500).then(() => updateCartQuantity());

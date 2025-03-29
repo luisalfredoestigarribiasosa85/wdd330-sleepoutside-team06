@@ -408,3 +408,10 @@ form button[type="submit"]:hover,
     grid-template-columns: 150px auto 15%;
   }
 }
+
+.breadcrumbs {
+  margin: 10px;
+  font-weight: 700;
+  font-style: italic;
+}
+
