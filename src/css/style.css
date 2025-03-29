@@ -371,12 +371,9 @@ form button[type="submit"]:hover,
   padding: 5rem 0;
 }
 
-.bottom-cart {
-  height: 8rem;
-}
-
-.bottom-cart h2 {
-  padding-bottom: 1rem;
+.button-container {
+  height: 5rem;
+  padding-top: 1rem;
 }
 
 .alert {

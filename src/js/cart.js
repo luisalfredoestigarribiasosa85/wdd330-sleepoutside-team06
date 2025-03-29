@@ -13,6 +13,7 @@ function renderCartContents() {
   calculateTotalPrice();
   delay(500).then(() => updateCartQuantity());
   removeFromCart();
+  displayCheckoutButton();
 }
 
 // Total Cart Price
@@ -55,6 +56,38 @@ function cartItemTemplate(item) {
   <p>Qtd: ${item.quantity}</p>
   </li>`;
   return newItem;
+}
+
+// Display the Checkout button
+function displayCheckoutButton() {
+  const products = getLocalStorage("so-cart") || [];
+  const totalQuantity = products.reduce(
+    (sum, product) => sum + (product.quantity || 0),
+    0,
+  );
+
+  const buttonContainer = document.querySelector("'.button-container'");
+
+  if (totalQuantity > 0) {
+    if (!buttonContainer) {
+      const newButtonContainer = document.createElement("div");
+      newButtonContainer.classList.add("button-container");
+
+      const checkoutButton = document.createElement("a");
+      checkoutButton.id = "checkoutButton";
+      checkoutButton.href = "../checkout/index.html";
+      checkoutButton.textContent = "To checkout";
+
+      newButtonContainer.appendChild(checkoutButton);
+
+      const totalContainer = document.querySelector(".total-container");
+      totalContainer.appendChild(newButtonContainer);
+    }
+  } else {
+    if (buttonContainer) {
+      buttonContainer.remove();
+    }
+  }
 }
 
 loadHeaderFooter();
