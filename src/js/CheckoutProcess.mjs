@@ -16,7 +16,6 @@ function formDataToJSON(formElement) {
 
 export function packageItems(items) {
     const listOfItems = items.map ((item) => {
-        console.log(item);
         return {
             id: item.Id,
             name: item.Name,
