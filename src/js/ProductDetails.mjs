@@ -1,6 +1,9 @@
-import { setLocalStorage, updateCartQuantity, delay, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, updateCartQuantity, delay, getLocalStorage, getDiscountDetails } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
+
+  const { discountBadge } = getDiscountDetails(product);
+
   document.querySelector("h2").textContent = product.Category.charAt(0).toUpperCase() + product.Category.slice(1);
   document.querySelector("#p-brand").textContent = product.Brand.Name;
   document.querySelector("#p-name").textContent = product.NameWithoutBrand;
@@ -10,6 +13,7 @@ function productDetailsTemplate(product) {
   document.querySelector("#p-price").textContent = `$${product.FinalPrice}`;
   document.querySelector("#p-color").textContent = product.Colors[0].ColorName;
   document.querySelector("#p-description").innerHTML = product.DescriptionHtmlSimple;
+  document.querySelector("#p-discount").innerHTML = discountBadge;
   document.querySelector("#add-to-cart").dataset.id = product.Id;
 }
 

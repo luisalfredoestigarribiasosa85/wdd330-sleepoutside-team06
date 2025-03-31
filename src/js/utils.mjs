@@ -17,6 +17,20 @@ export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
+export function getDiscountDetails(product) {
+  const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
+  let discountPercentage = 0;
+  let discountBadge = "";
+
+  if(isDiscounted) {
+    const discountAmount = product.SuggestedRetailPrice - product.FinalPrice;
+    discountPercentage = Math.round((discountAmount / product.SuggestedRetailPrice) * 100);
+    discountBadge = `<span class="discount-badge">${discountPercentage}% Discount</span>`;
+  }
+
+  return {isDiscounted, discountPercentage, discountBadge};
+}
+
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
